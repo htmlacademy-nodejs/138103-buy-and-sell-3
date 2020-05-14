@@ -42,7 +42,6 @@ module.exports = {
     async run(args) {
         const [count] = args;
         const countOffer = Number.parseInt(count, 10) || DEFAULT_COUNT;
-
         if (countOffer <= MAX_PUBLICATIONS) {
             const content = JSON.stringify(generateOffers(countOffer));
             try {
