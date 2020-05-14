@@ -17,7 +17,8 @@ const {
     OfferType
 } = require(`../../constants`);
 
-const fs = require(`fs`);
+const chalk = require(`chalk`);
+const fs = require(`fs`).promises;
 
 const getPictureFileName = (number) => `item${number.toString().padStart(2, 0)}.jpg`;
 
@@ -38,19 +39,21 @@ const generateOffers = (count) => (
 
 module.exports = {
     name: `--generate`,
-    run(args) {
+    async run(args) {
         const [count] = args;
         const countOffer = Number.parseInt(count, 10) || DEFAULT_COUNT;
         if (countOffer <= MAX_PUBLICATIONS) {
             const content = JSON.stringify(generateOffers(countOffer));
-            fs.writeFile(FILE_NAME, content, (err) => {
-                if (err) {
-                    process.exit(1);
-                }
-                process.exit();
-            });
+            try {
+                await fs.writeFile(FILE_NAME, content);
+                console.info(chalk.green(`Operation success. File created.`));
+                process.exit(1);
+            } catch (err) {
+                console.info(chalk.red(`Can't write data to file...`));
+                process.exit(1);
+            }
         } else {
-            console.info('Не больше 1000 объявлений');
+            console.info(chalk.red('Не более 1000 объявлений'));
             process.exit();
         }
     }

@@ -18,7 +18,9 @@
     "url": "https://github.com/joi-joe-joy/138103-buy-and-sell-3/issues"
   },
   "homepage": "https://github.com/joi-joe-joy/138103-buy-and-sell-3#readme",
-  "dependencies": {},
+  "dependencies": {
+    "chalk": "4.0.0"
+  },
   "devDependencies": {
     "eslint": "5.0.0",
     "eslint-config-htmlacademy": "0.5.2"
