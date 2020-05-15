@@ -7,7 +7,7 @@ const {
 
 const {
     DEFAULT_COUNT,
-    FILE_NAME,
+    FILENAME,
     MAX_PUBLICATIONS,
     PictureRestrict,
     SumRestrict,
@@ -23,20 +23,9 @@ const FILE_CATEGORIES_PATH = `./data/categories.txt`;
 
 const getPictureFileName = (number) => `item${number.toString().padStart(2, 0)}.jpg`;
 
-function createDescription(sentences) {
+const createDescription = (sentences) => {
     return Array(getRandomInt(1, 5)).fill('').map(() => sentences[getRandomInt(0, sentences.length - 1)]).join(` `);
 }
-
-const generateOffers = (count, titles, categories, sentences) => (
-    Array(count).fill({}).map(() => ({
-        title: titles[getRandomInt(0, titles.length - 1)],
-        picture: getPictureFileName(getRandomInt(PictureRestrict.min, PictureRestrict.max)),
-        description: createDescription(sentences),
-        type: Object.keys(OfferType)[Math.floor(Math.random() * Object.keys(OfferType).length)],
-        sum: getRandomInt(SumRestrict.min, SumRestrict.max),
-        category: [categories[getRandomInt(0, categories.length - 1)]],
-    }))
-);
 
 const readContent = async (filePath) => {
     try {
@@ -46,6 +35,17 @@ const readContent = async (filePath) => {
         console.error(chalk.red(err));
         return [];
     }
+};
+
+const generateOffers = (count, sentences, titles, categories) => {
+    return Array(count).fill({}).map(() => ({
+        title: titles[getRandomInt(0, titles.length - 1)],
+        picture: getPictureFileName(getRandomInt(PictureRestrict.min, PictureRestrict.max)),
+        description: createDescription(sentences),
+        type: Object.keys(OfferType)[Math.floor(Math.random() * Object.keys(OfferType).length)],
+        sum: getRandomInt(SumRestrict.min, SumRestrict.max),
+        category: [categories[getRandomInt(0, categories.length - 1)]],
+    }))
 };
 
 module.exports = {
@@ -60,11 +60,11 @@ module.exports = {
         if (countOffer <= MAX_PUBLICATIONS) {
             const content = JSON.stringify(generateOffers(countOffer, sentences, titles, categories));
             try {
-                await fs.writeFile(FILE_NAME, content);
+                await fs.writeFile(FILENAME, content);
                 console.info(chalk.green(`Operation success. File created.`));
                 process.exit(1);
             } catch (err) {
-                console.info(chalk.red(`Can't write data to file...`));
+                console.info(chalk.red(err, `Can't write data to file...`));
                 process.exit(1);
             }
         } else {

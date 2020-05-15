@@ -5,7 +5,8 @@ const ExitCode = {
     success: 0,
     error: 1
 };
-const FILE_NAME = `mocks.json`;
+const FILENAME = `mocks.json`;
+const DEFAULT_PORT = 3000;
 const MAX_PUBLICATIONS = 1000;
 
 const OfferType = {
@@ -23,14 +24,24 @@ const PictureRestrict = {
     max: 16,
 };
 
+const HttpCode = {
+    OK: 200,
+    NOT_FOUND: 404,
+    INTERNAL_SERVER_ERROR: 500,
+    FORBIDDEN: 403,
+    UNAUTHORIZED: 401,
+};
+
 module.exports = {
     DEFAULT_COUNT,
-    FILE_NAME,
+    FILENAME,
     MAX_PUBLICATIONS,
     DEFAULT_COMMAND,
     USER_ARGV_INDEX,
     ExitCode,
     OfferType,
     SumRestrict,
-    PictureRestrict
+    PictureRestrict,
+    DEFAULT_PORT,
+    HttpCode
 };
