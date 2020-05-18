@@ -6,7 +6,6 @@ module.exports = {
     name: `--help`,
     run() {
         console.info(chalk.gray(`
-
 Программа запускает http-сервер и формирует файл с данными для API.
 
 Гайд:

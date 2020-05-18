@@ -9,9 +9,6 @@ const {
     DEFAULT_COUNT,
     FILE_NAME,
     MAX_PUBLICATIONS,
-    TITLES,
-    SENTENCES,
-    CATEGORIES,
     PictureRestrict,
     SumRestrict,
     OfferType
@@ -20,30 +17,48 @@ const {
 const chalk = require(`chalk`);
 const fs = require(`fs`).promises;
 
+const FILE_SENTENCES_PATH = `./data/sentences.txt`;
+const FILE_TITLES_PATH = `./data/titles.txt`;
+const FILE_CATEGORIES_PATH = `./data/categories.txt`;
+
 const getPictureFileName = (number) => `item${number.toString().padStart(2, 0)}.jpg`;
 
-function createDescription() {
-    return Array(getRandomInt(1, 5)).fill('').map(() => SENTENCES[getRandomInt(0, SENTENCES.length - 1)]).join(` `);
+function createDescription(sentences) {
+    return Array(getRandomInt(1, 5)).fill('').map(() => sentences[getRandomInt(0, sentences.length - 1)]).join(` `);
 }
 
-const generateOffers = (count) => (
+const generateOffers = (count, titles, categories, sentences) => (
     Array(count).fill({}).map(() => ({
-        title: TITLES[getRandomInt(0, TITLES.length - 1)],
+        title: titles[getRandomInt(0, titles.length - 1)],
         picture: getPictureFileName(getRandomInt(PictureRestrict.min, PictureRestrict.max)),
-        description: createDescription(),
+        description: createDescription(sentences),
         type: Object.keys(OfferType)[Math.floor(Math.random() * Object.keys(OfferType).length)],
         sum: getRandomInt(SumRestrict.min, SumRestrict.max),
-        category: [CATEGORIES[getRandomInt(0, CATEGORIES.length - 1)]],
+        category: [categories[getRandomInt(0, categories.length - 1)]],
     }))
 );
+
+const readContent = async (filePath) => {
+    try {
+        const content = await fs.readFile(filePath, `utf8`);
+        return content.split(`\n`);
+    } catch (err) {
+        console.error(chalk.red(err));
+        return [];
+    }
+};
 
 module.exports = {
     name: `--generate`,
     async run(args) {
+        const sentences = await readContent(FILE_SENTENCES_PATH);
+        const titles = await readContent(FILE_TITLES_PATH);
+        const categories = await readContent(FILE_CATEGORIES_PATH);
+
         const [count] = args;
         const countOffer = Number.parseInt(count, 10) || DEFAULT_COUNT;
         if (countOffer <= MAX_PUBLICATIONS) {
-            const content = JSON.stringify(generateOffers(countOffer));
+            const content = JSON.stringify(generateOffers(countOffer, sentences, titles, categories));
             try {
                 await fs.writeFile(FILE_NAME, content);
                 console.info(chalk.green(`Operation success. File created.`));
