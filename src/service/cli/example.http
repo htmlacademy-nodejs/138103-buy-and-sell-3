@@ -1,0 +1,9 @@
+POST http://localhost:3000/company
+Content-Type: application/json
+
+{
+  "name": "HTML Academy",
+  "site": "https://htmlacademy.ru",
+  "instagram": "https://www.instagram.com/htmlacademy/",
+  "twitter": "https://twitter.com/htmlacademy_ru"
+}
