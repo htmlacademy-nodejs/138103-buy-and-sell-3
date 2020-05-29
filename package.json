@@ -22,7 +22,8 @@
   "homepage": "https://github.com/joi-joe-joy/138103-buy-and-sell-3#readme",
   "dependencies": {
     "chalk": "4.0.0",
-    "express": "4.17.1"
+    "express": "4.17.1",
+    "pug": "3.0.0"
   },
   "devDependencies": {
     "eslint": "5.0.0",
