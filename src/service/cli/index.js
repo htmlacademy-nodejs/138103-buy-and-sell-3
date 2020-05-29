@@ -6,12 +6,12 @@ const version = require(`./version`);
 const server = require(`./server`);
 
 const Cli = {
-    [generate.name]: generate,
-    [help.name]: help,
-    [version.name]: version,
-    [server.name]: server,
+  [generate.name]: generate,
+  [help.name]: help,
+  [version.name]: version,
+  [server.name]: server,
 };
 
 module.exports = {
-    Cli,
+  Cli,
 };
