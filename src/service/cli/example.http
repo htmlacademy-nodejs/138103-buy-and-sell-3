@@ -1,9 +1,58 @@
-POST http://localhost:3000/company
+### Получение списка объявлений
+GET http://localhost:3000/api/offers
+
+### Получение объявления по ID
+GET http://localhost:3000/api/offers/Wdj-Qk
+
+### Создание объявления
+POST http://localhost:3000/api/offers
 Content-Type: application/json
 
 {
-  "name": "HTML Academy",
-  "site": "https://htmlacademy.ru",
-  "instagram": "https://www.instagram.com/htmlacademy/",
-  "twitter": "https://twitter.com/htmlacademy_ru"
+  "title": "Куплю антиквариат",
+    "picture": "item11.jpg",
+    "description": "Надевала один раз. Честно. При покупке с меня бесплатная доставка в черте города. Если товар не понравится — верну всё до последней копейки. Кажется, что это хрупкая вещь.",
+    "type": "offer",
+    "sum": 57404,
+    "category": [
+      "Посуда"
+    ]
 }
+
+### Редактирование объявления
+PUT http://localhost:3000/api/offers/JNv2lE
+Content-Type: application/json
+
+{
+  "title": "Продам антиквариат",
+    "picture": "item11.jpg",
+    "description": "Надевала один раз. Честно. При покупке с меня бесплатная доставка в черте города. Если товар не понравится — верну всё до последней копейки. Кажется, что это хрупкая вещь.",
+    "type": "offer",
+    "sum": 57404,
+    "category": [
+      "Посуда"
+    ]
+}
+
+### Удаление объявления по ID
+DELETE http://localhost:3000/api/offers/JNv2lE
+
+### Получение списка категорий
+GET http://localhost:3000/api/categories
+
+### Получение списка комментариев
+GET http://localhost:3000/api/offers/rHvldt/comments
+
+### Создать комментарий
+POST http://localhost:3000/api/offers/rHvldt/comments
+Content-Type: application/json
+
+{
+  "text": "Продам антиквариат"
+}
+
+### Удалить коммент
+DELETE http://localhost:3000/api/offers/rHvldt/comments/hwimI1
+
+### Поиск по названию
+GET http://localhost:3000/api/search?query=антиквариат
