@@ -52,7 +52,7 @@ module.exports = (app, offerService, commentService) => {
   });
 
   route.delete(`/:offerId`, offerExist(offerService), (req, res) => {
-    const {offer} = req.locals;
+    const {offer} = res.locals;
     const deletedOffer = offerService.drop(offer.id);
 
     return res.status(HttpCode.OK)
