@@ -52,16 +52,11 @@ module.exports = (app, offerService, commentService) => {
   });
 
   route.delete(`/:offerId`, offerExist(offerService), (req, res) => {
-    const {offerId} = req.params;
-    const offer = offerService.drop(offerId);
-
-    if (!offer) {
-      return res.status(HttpCode.NOT_FOUND)
-        .send(`Not found`);
-    }
+    const {offer} = req.locals;
+    const deletedOffer = offerService.drop(offer.id);
 
     return res.status(HttpCode.OK)
-      .json(offer);
+      .json(deletedOffer);
   });
 
   route.get(`/:offerId/comments`, offerExist(offerService), (req, res) => {
