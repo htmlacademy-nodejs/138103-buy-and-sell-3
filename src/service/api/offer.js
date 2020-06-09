@@ -36,16 +36,9 @@ module.exports = (app, offerService, commentService) => {
       .json(offer);
   });
 
-  route.put(`/:offerId`, offerValidator, (req, res) => {
-    const {offerId} = req.params;
-    let existOffer = offerService.findOne(offerId);
-
-    if (!existOffer) {
-      return res.status(HttpCode.NOT_FOUND)
-        .send(`Not found with ${offerId}`);
-    }
-
-    const updatedOffer = offerService.update(offerId, req.body);
+  route.put(`/:offerId`, [offerValidator, offerExist(offerService)], (req, res) => {
+    const {offer} = res.locals;
+    const updatedOffer = offerService.update(offer.id, req.body);
 
     return res.status(HttpCode.OK)
       .json(updatedOffer);
