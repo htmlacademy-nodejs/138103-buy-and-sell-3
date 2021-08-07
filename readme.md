@@ -1,7 +1,7 @@
 # Учебный проект «Куплю. Продам» [![Build status][travis-image]][travis-url]
 
-* Студент: [Евгения Михеева](https://up.htmlacademy.ru/nodejs/3/user/138103).
-* Наставник: `Александр Михайлович Соколов`.
+* Студент: [Евгения Степанова](https://up.htmlacademy.ru/nodejs/3/user/138103).
+* Наставник: [Вадим Осюков](https://htmlacademy.ru/profile/id1411353).
 
 ---
 

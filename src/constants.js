@@ -1,29 +1,31 @@
 'use strict';
 
 const DEFAULT_COUNT = 1;
-const DEFAULT_COMMAND = `--generate`;
 const USER_ARGV_INDEX = 2;
-const ExitCode = {
-  success: 0,
-  error: 1
-};
+const DEFAULT_COMMAND = `--generate`;
 const FILENAME = `mocks.json`;
+const API_PREFIX = `/api`;
 const MAX_PUBLICATIONS = 1000;
 const MAX_ID_LENGTH = 6;
 
+const ExitCode = {
+  SUCCESS: 0,
+  ERROR: 1
+};
+
 const OfferType = {
-  offer: `offer`,
-  sale: `sale`,
+  OFFER: `offer`,
+  SALE: `sale`,
 };
 
 const SumRestrict = {
-  min: 1000,
-  max: 100000,
+  MIN: 1000,
+  MAX: 100000,
 };
 
 const PictureRestrict = {
-  min: 1,
-  max: 16,
+  MIN: 1,
+  MAX: 16,
 };
 
 const HttpCode = {
@@ -36,7 +38,10 @@ const HttpCode = {
   BAD_REQUEST: 400,
 };
 
-const API_PREFIX = `/api`;
+const Env = {
+  DEVELOPMENT: `development`,
+  PRODUCTION: `production`
+};
 
 module.exports = {
   DEFAULT_COUNT,
@@ -50,6 +55,6 @@ module.exports = {
   PictureRestrict,
   HttpCode,
   MAX_ID_LENGTH,
-  API_PREFIX
+  API_PREFIX,
+  Env
 };
-

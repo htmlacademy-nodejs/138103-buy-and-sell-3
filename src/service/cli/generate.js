@@ -12,12 +12,15 @@ const {
   PictureRestrict,
   SumRestrict,
   OfferType,
-  MAX_ID_LENGTH
+  MAX_ID_LENGTH,
+  ExitCode
 } = require(`../../constants`);
 
 const chalk = require(`chalk`);
 const fs = require(`fs`).promises;
-const {nanoid} = require(`nanoid`);
+const {
+  nanoid
+} = require(`nanoid`);
 
 const FILE_SENTENCES_PATH = `./data/sentences.txt`;
 const FILE_TITLES_PATH = `./data/titles.txt`;
@@ -55,10 +58,10 @@ const generateOffers = (count, sentences, titles, categories, comments) => {
   return Array(count).fill({}).map(() => ({
     id: nanoid(MAX_ID_LENGTH),
     title: titles[getRandomInt(0, titles.length - 1)],
-    picture: getPictureFileName(getRandomInt(PictureRestrict.min, PictureRestrict.max)),
+    picture: getPictureFileName(getRandomInt(PictureRestrict.MIN, PictureRestrict.MAX)),
     description: createDescription(sentences),
     type: Object.keys(OfferType)[Math.floor(Math.random() * Object.keys(OfferType).length)],
-    sum: getRandomInt(SumRestrict.min, SumRestrict.max),
+    sum: getRandomInt(SumRestrict.MIN, SumRestrict.MAX),
     category: [categories[getRandomInt(0, categories.length - 1)]],
     comments: generateComments(getRandomInt(1, MAX_COMMENTS), comments),
   }));
@@ -79,14 +82,14 @@ module.exports = {
       try {
         await fs.writeFile(FILENAME, content);
         console.info(chalk.green(`Operation success. File created.`));
-        process.exit(1);
+        process.exit(ExitCode.SUCCESS);
       } catch (err) {
         console.info(chalk.red(err, `Can't write data to file...`));
-        process.exit(1);
+        process.exit(ExitCode.ERROR);
       }
     } else {
       console.info(chalk.red(`Не более 1000 объявлений`));
-      process.exit();
+      process.exit(ExitCode.ERROR);
     }
   }
 };
