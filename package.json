@@ -4,9 +4,11 @@
   "description": "Куплю. Продам",
   "main": "./src/service/service.js",
   "scripts": {
-    "test": "npm run eslint",
+    "test": "npm run eslint && npm run jest",
+    "jest": "jest",
     "eslint": "eslint --ext .js src/",
-    "start": "node ./src/service/service.js",
+    "start": "cross-env NODE_ENV=production node ./src/service/service.js",
+    "start::debug": "cross-env NODE_ENV=development node ./src/service/service.js",
     "start.dev": "nodemon ./src/service/cli/server.js",
     "start-front-server": "node ./src/express/index.js"
   },
@@ -14,7 +16,7 @@
     "type": "git",
     "url": "git+https://github.com/joi-joe-joy/138103-buy-and-sell-3.git"
   },
-  "author": "Evgenia Mikheeva",
+  "author": "Evgenia Stepanova",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/joi-joe-joy/138103-buy-and-sell-3/issues"
@@ -22,13 +24,18 @@
   "homepage": "https://github.com/joi-joe-joy/138103-buy-and-sell-3#readme",
   "dependencies": {
     "chalk": "4.0.0",
+    "cross-env": "7.0.3",
     "express": "4.17.1",
     "nanoid": "3.1.9",
+    "pino": "6.13.0",
     "pug": "3.0.0"
   },
   "devDependencies": {
-    "eslint": "5.0.0",
+    "eslint": "6.8.0",
     "eslint-config-htmlacademy": "0.5.2",
-    "nodemon": "2.0.4"
+    "jest": "25.1.0",
+    "nodemon": "2.0.4",
+    "pino-pretty": "5.1.2",
+    "supertest": "6.1.4"
   }
 }

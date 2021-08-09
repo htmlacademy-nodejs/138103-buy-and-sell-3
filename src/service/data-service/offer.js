@@ -1,6 +1,8 @@
 'use strict';
 
-const {nanoid} = require(`nanoid`);
+const {
+  nanoid
+} = require(`nanoid`);
 const {
   MAX_ID_LENGTH
 } = require(`../../constants`);
@@ -11,7 +13,11 @@ class OfferService {
   }
 
   create(offer) {
-    const newOffer = Object.assign({id: nanoid(MAX_ID_LENGTH), comments: []}, offer);
+    const newOffer = {
+      ...offer,
+      id: nanoid(MAX_ID_LENGTH),
+      comments: []
+    };
     this._offers.push(newOffer);
 
     return newOffer;
@@ -37,8 +43,13 @@ class OfferService {
   }
 
   update(id, offer) {
-    const oldOffer = this._offers.find((item) => item.id === id);
-    return Object.assign(oldOffer, offer);
+    const oldOfferIndex = this._offers.findIndex((item) => item.id === id);
+    const newOffer = {
+      ...this._offers[oldOfferIndex],
+      ...offer
+    };
+    this._offers[oldOfferIndex] = newOffer;
+    return newOffer;
   }
 }
 

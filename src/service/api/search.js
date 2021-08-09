@@ -1,15 +1,21 @@
 'use strict';
 
-const {Router} = require(`express`);
-const {HttpCode} = require(`../../constants`);
-
-const route = new Router();
+const {
+  Router
+} = require(`express`);
+const {
+  HttpCode
+} = require(`../../constants`);
 
 module.exports = (app, service) => {
+  const route = new Router();
+
   app.use(`/search`, route);
 
   route.get(`/`, (req, res) => {
-    const {query = ``} = req.query;
+    const {
+      query = ``
+    } = req.query;
 
     if (!query) {
       res.status(HttpCode.BAD_REQUEST).json([]);

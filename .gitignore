@@ -9,6 +9,8 @@ Thumbs.db
 
 # Вспомогательные файлы
 *.log*
+.prettierrc.js
+.prettierignore
 node_modules/
 
 # Папка с собранными файлами проекта
