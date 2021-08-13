@@ -45,7 +45,6 @@ module.exports = {
   async run(args) {
     const [customPort] = args;
     const port = Number.parseInt(customPort, 10) || DEFAULT_PORT;
-
     try {
       app.listen(port, (err) => {
         if (err) {

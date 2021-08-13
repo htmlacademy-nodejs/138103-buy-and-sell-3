@@ -1,9 +1,26 @@
 'use strict';
 
-const {Router} = require(`express`);
+const {
+  Router
+} = require(`express`);
+const api = require(`../api`).getAPI();
+
 const myRouter = new Router();
 
-myRouter.get(`/`, (req, res) => res.render(`my-tickets`)); // мои объявления
-myRouter.get(`/comments`, (req, res) => res.render(`comments`)); // комментарии к публикациям
+// мои объявления
+myRouter.get(`/`, async (req, res) => {
+  const pugOffers = await api.getOffers();
+  res.render(`my/my-tickets`, {
+    pugOffers
+  });
+});
+
+// комментарии к публикациям
+myRouter.get(`/comments`, async (req, res) => {
+  const pugOffers = await api.getOffers();
+  res.render(`my/comments`, {
+    pugOffers: pugOffers.slice(0, 3)
+  });
+});
 
 module.exports = myRouter;
